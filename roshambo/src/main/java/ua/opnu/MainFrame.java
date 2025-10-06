@@ -37,25 +37,20 @@ public class MainFrame extends JFrame implements ActionListener {
     }
 
     private GameShape generateShape() {
-
-        // TODO: написати логіку методу
-
-        // Метод повертає об'єкт ігрової фігури (камінь, ножиці чи папір)
-        // випадковим чином
-
-        int random = new Random().nextInt(3);
-
-        return new GameShape(); // TODO: змініть на об'єкт потрібної фігури
+        int random = new Random().nextInt(3); // 0..2
+        switch (random) {
+            case 0: return new Rock();
+            case 1: return new Paper();
+            default: return new Scissors();
+        }
     }
 
     private int checkWinner(GameShape player, GameShape computer) {
+        if (player.getClass() == computer.getClass()) return 0;
 
-        // Метод отримує клас фігури гравця і комп'ютера за допомогою оператора instanceof
-        // Метод повертає 1 якщо переміг гравець
-        // Метод повертає 0 якщо нічия (обидві фігури однакові)
-        // Метод повертає -1 якщо переміг комп'ютер
-
-        // TODO: написати логіку методу
+        if (player instanceof Rock)      return (computer instanceof Scissors) ? 1 : -1;
+        if (player instanceof Scissors)  return (computer instanceof Paper)    ? 1 : -1;
+        if (player instanceof Paper)     return (computer instanceof Rock)     ? 1 : -1;
 
         return 0;
     }
@@ -65,18 +60,20 @@ public class MainFrame extends JFrame implements ActionListener {
         // Генерується ход комп'ютеру
         GameShape computerShape = generateShape();
 
-        GameShape playerShape = new GameShape();
+        GameShape playerShape;
         // Визначаємо, на яку кнопку натиснув гравець
         switch (e.getActionCommand()) {
             case "rock":
-                // присвоїти playerShape об'єкт відповідного класу
+                playerShape = new Rock();
                 break;
             case "paper":
-                // присвоїти playerShape об'єкт відповідного класу
+                playerShape = new Paper();
                 break;
             case "scissors":
-                // присвоїти playerShape об'єкт відповідного класу
+                playerShape = new Scissors();
                 break;
+            default:
+                return; // на всяк випадок
         }
 
         // Визначити результат гри
