@@ -99,8 +99,15 @@ public class DrawFrame extends JFrame {
         // Додаємо другу кнопку на верхню панель
         buttonPanel.add(rounded_rect);
 
-        // TODO: додати кнопку для еліпса за аналогією з іншими кнопками
-        // TODO: для додаткових балів додати кнопку "Clear" для очищення всіх фігур
+        // 3. Кнопка Ellipse
+        BigTextButton ellipse = new BigTextButton("Ellipse");
+        ellipse.addActionListener(e -> surface.setShapeType(ua.opnu.model.DrawShape.SHAPE_ELLIPSE));
+        buttonPanel.add(ellipse);
+
+        // 4. Кнопка Clear (очистити все)
+        BigTextButton clear = new BigTextButton("Clear");
+        clear.addActionListener(e -> surface.clearAll());   // метод додамо в PaintSurface
+        buttonPanel.add(clear);
 
         return buttonPanel;
     }
